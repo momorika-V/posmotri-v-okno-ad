@@ -1,3 +1,4 @@
+/* --- База --- */
 *,
 *::before,
 *::after {
@@ -8,14 +9,23 @@ html {
   block-size: 100%;
 }
 
-.page {
-  inline-size: 1200px;
+body {
+  margin: 0;
   block-size: 100%;
-  margin: auto;
+}
+
+.page {
+  max-inline-size: 1200px; /* Изменено для устранения горизонтального скролла */
+  inline-size: 100%;       /* Изменено */
+  min-block-size: 100%;
+  margin: 0 auto;
   color: #fff;
   font-family: 'Fira Sans Condensed', sans-serif;
   font-size: 18px;
   background-color: #1b1919;
+  display: flex;
+  justify-content: center; /* Центрирование по X */
+  align-items: center;     /* Центрирование по Y */
 }
 
 h1,
@@ -37,7 +47,7 @@ ol {
   list-style: none;
 }
 
-/* Кастомный скроллбар */
+/* --- Скроллбар --- */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
@@ -47,5 +57,291 @@ ol {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
+}
+
+/* --- Сетка (Лейаут) --- */
+.content {
+  inline-size: 1140px;
+  display: flex;
+  align-items: flex-end;
+  gap: 40px; /* Отступ между колонками */
+}
+
+.result {
+  inline-size: 711px;
+  flex-shrink: 0; /* Запрет сжатия */
+  margin-top: 30px;
+}
+
+.content__details {
+  flex-grow: 1;
+  min-inline-size: 0; /* Важно для сжатия */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- Видео --- */
+.result__video-container {
+  position: relative;
+  inline-size: 100%;
+  block-size: 386px;
+  margin-bottom: 10px;
+}
+
+.result__video {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover; /* Заполнение блока */
+  object-position: center; /* Добавлено по чек-листу */
+}
+
+/* --- Форма --- */
+.search-form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  inline-size: 100%;
+  font-size: 16px;
+}
+
+.search-form__fieldset {
+  border: none;
+  min-inline-size: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.search-form__fieldset:first-child {
+  flex-grow: 1;
+}
+
+.search-form__fieldset-title {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.search-form__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  inline-size: 100%;
+  cursor: pointer;
+}
+
+.search-form__label:has(:focus-visible) {
+  outline: 1px solid #fff;
+  outline-offset: 2px;
+}
+
+.search-form__textfield {
+  inline-size: 100%;
+  max-inline-size: 219px; /* Ограничение ширины */
+  padding: 6px 0;
+  border: none;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 18px;
+  appearance: none;
+  outline: none;
+}
+
+.search-form__textfield::placeholder {
+  color: rgb(255 255 255 / 0.7);
+}
+
+.search-form__checkbox-list {
+  display: flex;
+  gap: 20px;
+}
+
+.search-form__checkbox-list .search-form__label {
+  inline-size: fit-content;
+  gap: 8px;
+}
+
+.search-form__label-text {
+  font-size: 18px;
+}
+
+.search-form__pseudo-checkbox {
+  inline-size: 22px;
+  block-size: 22px;
+  padding: 2px;
+  border: 1px solid #fff;
+}
+
+.search-form__pseudo-checkbox::after {
+  content: '';
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: #fff;
+  opacity: 0;
+}
+
+.search-form__checkbox:checked + .search-form__pseudo-checkbox::after {
+  opacity: 1;
+}
+
+.search-form__checkbox-list .search-form__label:hover .search-form__label-text {
+  text-decoration: underline;
+}
+
+/* --- Кнопки --- */
+.button {
+  border: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button:hover {
+  text-decoration: underline;
+}
+
+.button:active {
+  background-color: #555050;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 3px;
+}
+
+.search-form__submit-button {
+  inline-size: 194px;
+  block-size: 34px;
+  flex-shrink: 0; /* Запрет сжатия */
+}
+
+/* --- Заголовок --- */
+.title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 74px;
+  font-weight: 700;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.content__accent {
+  color: #5a5656;
+}
+
+/* --- Карточки --- */
+.content__list-container {
+  position: relative;
+  block-size: 300px;
+  overflow-y: auto; /* Вертикальный скролл */
+}
+
+.content__list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.content__list-item {
+  padding: 0 3px;
+}
+
+.content__card-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.content__card-link_current {
+  background-color: #555050;
+}
+
+.content__card-link:active {
+  background-color: #555050;
+}
+
+.content__card-link:hover .content__video-card-title,
+.content__card-link:hover .content__video-card-description {
+  text-decoration: underline;
+}
+
+.content__card-link:focus {
+  outline: none;
+}
+
+.content__card-link:focus-visible {
+  outline: 1px solid #fff;
+}
+
+.content__video-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.content__video-card-description-container {
+  flex-grow: 1;
+  min-inline-size: 0; /* Важно для обрезки текста */
+}
+
+.content__video-card-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Многоточие */
+  margin-bottom: 4px;
+}
+
+.content__video-card-description {
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* Максимум 4 строки */
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+.content__video-card-thumbnail {
+  block-size: 103px;
+  inline-size: 194px;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0; /* Запрет сжатия */
+}
+
+.more-button {
+  inline-size: 100%;
+  block-size: 30px;
+  font-size: 14px;
+  flex-shrink: 0;
 }
